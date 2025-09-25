@@ -115,150 +115,50 @@ async function handleAIRequest(message, sendResponse) {
 }
 
 // Chrome Built-in AI API Functions
+// Note: These APIs are not available in service worker context, 
+// so we'll use backup AI for all requests from background script
 
 // Writer API - for improving text
 async function improveTextWithBuiltInAI(text, options = {}) {
-  try {
-    if (!window.ai?.writer) {
-      throw new Error('Writer API not available');
-    }
-    
-    const writer = await window.ai.writer.create({
-      tone: options.tone || 'neutral',
-      format: 'plain-text',
-      length: 'medium'
-    });
-    
-    const result = await writer.write(`Improve this text: ${text}`);
-    writer.destroy();
-    return result;
-  } catch (error) {
-    console.log('Chrome Writer API failed, using backup:', error.message);
-    return await callBackupAI(`Improve this text to be more ${options.tone || 'professional'}: "${text}"`);
-  }
+  console.log('Writer API not available in service worker, using backup AI');
+  return await callBackupAI(`Improve this text to be more ${options.tone || 'professional'}: "${text}"`);
 }
 
 // Translator API - for translation
 async function translateWithBuiltInAI(text, options = {}) {
-  try {
-    if (!window.ai?.translator) {
-      throw new Error('Translator API not available');
-    }
-    
-    const translator = await window.ai.translator.create({
-      sourceLanguage: options.from || 'en',
-      targetLanguage: options.to || 'es'
-    });
-    
-    const result = await translator.translate(text);
-    translator.destroy();
-    return result;
-  } catch (error) {
-    console.log('Chrome Translator API failed, using backup:', error.message);
-    return await callBackupAI(`Translate this text to ${options.to || 'Spanish'}: "${text}"`);
-  }
+  console.log('Translator API not available in service worker, using backup AI');
+  const targetLang = options.to || 'Spanish';
+  return await callBackupAI(`Translate this text from ${options.from || 'English'} to ${targetLang}: "${text}"`);
 }
 
 // Summarizer API - for summarization
 async function summarizeWithBuiltInAI(text, options = {}) {
-  try {
-    if (!window.ai?.summarizer) {
-      throw new Error('Summarizer API not available');
-    }
-    
-    const summarizer = await window.ai.summarizer.create({
-      type: options.type || 'key-points',
-      format: 'plain-text',
-      length: options.length || 'short'
-    });
-    
-    const result = await summarizer.summarize(text);
-    summarizer.destroy();
-    return result;
-  } catch (error) {
-    console.log('Chrome Summarizer API failed, using backup:', error.message);
-    return await callBackupAI(`Summarize this text: "${text}"`);
-  }
+  console.log('Summarizer API not available in service worker, using backup AI');
+  const length = options.length === 'short' ? 'in 2-3 sentences' : options.length === 'long' ? 'in detail' : 'concisely';
+  return await callBackupAI(`Summarize this text ${length}: "${text}"`);
 }
 
 // Rewriter API - for rewriting
 async function rewriteWithBuiltInAI(text, options = {}) {
-  try {
-    if (!window.ai?.rewriter) {
-      throw new Error('Rewriter API not available');
-    }
-    
-    const rewriter = await window.ai.rewriter.create({
-      tone: options.tone || 'as-is',
-      format: 'plain-text',
-      length: options.length || 'as-is'
-    });
-    
-    const result = await rewriter.rewrite(text);
-    rewriter.destroy();
-    return result;
-  } catch (error) {
-    console.log('Chrome Rewriter API failed, using backup:', error.message);
-    return await callBackupAI(`Rewrite this text: "${text}"`);
-  }
+  console.log('Rewriter API not available in service worker, using backup AI');
+  const tone = options.tone || 'neutral';
+  return await callBackupAI(`Rewrite this text with a ${tone} tone: "${text}"`);
 }
 
 // Language Model API (Prompt API) - for proofreading and explaining
 async function proofreadWithBuiltInAI(text) {
-  try {
-    if (!window.ai?.languageModel) {
-      throw new Error('Language Model API not available');
-    }
-    
-    const session = await window.ai.languageModel.create({
-      systemPrompt: 'You are a professional proofreader. Check grammar, spelling, and style.'
-    });
-    
-    const result = await session.prompt(`Please proofread this text: "${text}"`);
-    session.destroy();
-    return result;
-  } catch (error) {
-    console.log('Chrome Language Model API failed, using backup:', error.message);
-    return await callBackupAI(`Proofread this text: "${text}"`);
-  }
+  console.log('Language Model API not available in service worker, using backup AI');
+  return await callBackupAI(`Please proofread this text for grammar, spelling, and style: "${text}"`);
 }
 
 async function explainWithBuiltInAI(text) {
-  try {
-    if (!window.ai?.languageModel) {
-      throw new Error('Language Model API not available');
-    }
-    
-    const session = await window.ai.languageModel.create({
-      systemPrompt: 'You are a helpful teacher. Explain concepts clearly and simply.'
-    });
-    
-    const result = await session.prompt(`Please explain this: "${text}"`);
-    session.destroy();
-    return result;
-  } catch (error) {
-    console.log('Chrome Language Model API failed, using backup:', error.message);
-    return await callBackupAI(`Explain this text: "${text}"`);
-  }
+  console.log('Language Model API not available in service worker, using backup AI');
+  return await callBackupAI(`Please explain this clearly and simply: "${text}"`);
 }
 
 async function chatWithBuiltInAI(text) {
-  try {
-    if (!window.ai?.languageModel) {
-      throw new Error('Language Model API not available');
-    }
-    
-    const session = await window.ai.languageModel.create({
-      systemPrompt: 'You are Clippy, a helpful and friendly AI assistant. Be enthusiastic and helpful!'
-    });
-    
-    const result = await session.prompt(text);
-    session.destroy();
-    return result;
-  } catch (error) {
-    console.log('Chrome Language Model API failed, using backup:', error.message);
-    return await callBackupAI(text);
-  }
+  console.log('Language Model API not available in service worker, using backup AI');
+  return await callBackupAI(`You are Clippy, a helpful and friendly AI assistant. Be enthusiastic and helpful! User says: "${text}"`);
 }
 
 // Backup external API call (Gemini)
