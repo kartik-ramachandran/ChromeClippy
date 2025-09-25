@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "AI Clippy 2025",
+  "version": "1.0.3",
+  "description": "Your friendly AI assistant, now with Chrome Built-in AI superpowers! 📎",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting",
+    "tabs",
+    "desktopCapture",
+    "nativeMessaging"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["clippy.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "AI Clippy Settings"
+  },
+  "icons": {
+    "16": "clippy-icon-16.png",
+    "32": "clippy-icon-32.png",
+    "48": "clippy-icon-48.png",
+    "128": "clippy-icon-128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["clippy.css", "*.chunk.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

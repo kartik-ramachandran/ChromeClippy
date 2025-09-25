@@ -1,0 +1,151 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI Clippy 2025 Settings</title><style>body {
+            width: 350px;
+            min-height: 400px;
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+        
+        .popup-container {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .header .clippy-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 18px;
+            color: #4a90e2;
+        }
+        
+        .setting-group {
+            margin-bottom: 20px;
+        }
+        
+        .setting-label {
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+            color: #555;
+        }
+        
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+            margin-right: 10px;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: #4a90e2;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .setting-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 8px 0;
+        }
+        
+        .personality-selector {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        
+        .personality-btn {
+            padding: 6px 12px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+        
+        .personality-btn.active {
+            border-color: #4a90e2;
+            background: #4a90e2;
+            color: white;
+        }
+        
+        .status {
+            text-align: center;
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 8px;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+        }
+        
+        .status.enabled {
+            background: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #f0f0f0;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .version {
+            font-size: 11px;
+            color: #999;
+        }</style><script defer="defer" src="popup.js"></script></head><body><div class="popup-container"><div class="header"><span class="clippy-icon">📎</span><h1>AI Clippy 2025</h1></div><div class="status" id="status"><span>🟢 Clippy is active and ready to help!</span></div><div class="setting-group"><label class="setting-label">Features</label><div class="setting-item"><span>✍️ Writing Help</span> <label class="switch"><input type="checkbox" id="helpWithWriting" checked="checked"> <span class="slider"></span></label></div><div class="setting-item"><span>🌍 Translation</span> <label class="switch"><input type="checkbox" id="helpWithTranslation" checked="checked"> <span class="slider"></span></label></div><div class="setting-item"><span>📄 Summarization</span> <label class="switch"><input type="checkbox" id="helpWithSummarization" checked="checked"> <span class="slider"></span></label></div><div class="setting-item"><span>💻 Code Help</span> <label class="switch"><input type="checkbox" id="helpWithCode" checked="checked"> <span class="slider"></span></label></div></div><div class="setting-group"><label class="setting-label">Personality</label><div class="personality-selector"><button class="personality-btn" data-level="subtle">Subtle</button> <button class="personality-btn active" data-level="classic">Classic</button> <button class="personality-btn" data-level="extra">Extra</button></div></div><div class="setting-group"><div class="setting-item"><span>📎 Enable Clippy</span> <label class="switch"><input type="checkbox" id="clippyEnabled" checked="checked"> <span class="slider"></span></label></div></div><div class="footer"><div>Built for Google Chrome AI Challenge 2025</div><div class="version">v1.0.0</div></div></div><script src="popup.js"></script></body></html>

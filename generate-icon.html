@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Clippy Icon</title>
+</head>
+<body>
+    <canvas id="canvas" width="128" height="128"></canvas>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Fill background
+        ctx.fillStyle = '#4a90e2';
+        ctx.fillRect(0, 0, 128, 128);
+        
+        // Draw Clippy shape
+        ctx.fillStyle = '#2c5aa0';
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 3;
+        
+        // Main body
+        ctx.fillRect(20, 20, 30, 80);
+        ctx.strokeRect(20, 20, 30, 80);
+        
+        // Clip part
+        ctx.fillRect(50, 30, 40, 20);
+        ctx.strokeRect(50, 30, 40, 20);
+        
+        // Eyes
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(25, 35, 6, 6);
+        ctx.fillRect(25, 50, 6, 6);
+        
+        // Convert to blob and download
+        canvas.toBlob(function(blob) {
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'clippy-icon.png';
+            link.click();
+        });
+    </script>
+</body>
+</html>
